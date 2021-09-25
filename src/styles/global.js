@@ -11,7 +11,8 @@ export default createGlobalStyle`
 a {
     text-decoration: none;
     font-family: 'Gluten', cursive;
-}   
+    color: #007aff;
+};
 
 button {
     cursor: pointer;

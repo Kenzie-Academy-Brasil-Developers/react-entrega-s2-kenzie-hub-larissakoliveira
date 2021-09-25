@@ -24,20 +24,17 @@ p{
     padding-top: 10px;
 }
 
-.MuiOutlinedInput-input.MuiInputBase-input.MuiInputBase-inputSizeSmall.css-1n4twyu-MuiInputBase-input-MuiOutlinedInput-input{
-    
-}
-
 .MuiFormControl-root.MuiFormControl-marginNormal.MuiTextField-root.css-1rv3ei8-MuiFormControl-root-MuiTextField-root{
-    max-width: 210px;
+    width: 80%;
 }
 
 .MuiPaper-root.MuiPaper-outlined.css-mta8o9-MuiPaper-root {
     border-radius: 20px;
+    padding: 15px;
 }
 
-.MuiPaper-root.MuiPaper-outlined.css-mta8o9-MuiPaper-root{
-    padding: 15px;
+.titleSignUp{
+    color: #007aff;
 }
 
 .inputDivs{
@@ -48,7 +45,11 @@ p{
 .css-k4qjio-MuiFormHelperText-root.Mui-error{
     line-height: 1.1;
     text-align: center;
+    font-size: 11px;
 }
 
+.sc-eCstlR.fhxtck{
+    height: 100%;
+}
 `
 

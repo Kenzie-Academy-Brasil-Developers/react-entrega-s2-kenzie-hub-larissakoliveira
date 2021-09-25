@@ -34,8 +34,9 @@ const FormSignUp = ({setUser}) => {
 
   return (
       <Container>
+              <h1 className='title'>Kenziehub</h1>
     <Paper variant="outlined" square>
-    <h1>Faça seu login</h1>
+    <h1 className='titleLogin'>Faça seu login</h1>
     <form onSubmit={handleSubmit(handleForm)}>
       <div>
         <TextField

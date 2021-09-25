@@ -31,4 +31,16 @@ p{
 .MuiPaper-root.MuiPaper-outlined.css-mta8o9-MuiPaper-root{
     padding: 15px;
 }
+
+.title{
+    margin: 0;
+    position: absolute;
+    top: 25px;
+    color: white;
+    font-size: 35px;
+}
+
+.titleLogin{
+    color: #007aff;
+}
 `
