@@ -8,27 +8,20 @@ export default createGlobalStyle`
     outline: 0;
 }
 
-:root {
-    --white: #f5f5f5;
-}
-
-body {  
-}
-
 a {
     text-decoration: none;
-    font-family: 'Fredoka One', cursive;
-}
+    font-family: 'Gluten', cursive;
+}   
 
 button {
     cursor: pointer;
 }
 
 h1,h2,h3,h4,h5{
-    font-family: 'Gluten', cursive;
+    font-family: 'Lexend Deca', sans-serif;
 }
 
 p{  
-    font-family: 'Lexend Deca', sans-serif;
+    font-family: 'Fredoka One', cursive;
 }
 `;
