@@ -19,6 +19,7 @@ p{
     padding-top: 10px;
 }
 
+
 .MuiFormControl-root.MuiFormControl-marginNormal.MuiTextField-root.css-1rv3ei8-MuiFormControl-root-MuiTextField-root{
     max-width: 210px;
 }
@@ -30,5 +31,4 @@ p{
 .MuiPaper-root.MuiPaper-outlined.css-mta8o9-MuiPaper-root{
     padding: 15px;
 }
-
 `
