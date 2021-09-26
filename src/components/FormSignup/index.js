@@ -54,17 +54,17 @@ const FormSignUp = ({authenticated}) => {
   }) => {
     const user = { name, email, password, bio, course_module, contact };
     api
-      .post("/users", user)
+      .post("/users/", user)
       .then((_) => {
-        toast.success("Sucesso ao criar a conta");
+        toast.success("Sucesso ao criar a conta!");
         return history.push("/");
       })
-      .catch((err) => toast.error("Erro ao criar a conta"));
+      .catch((err) => toast.error("Erro ao criar a conta!"));
   };
 
 
   if(authenticated){
-    return <Redirect to='./dashboard'/>
+    return <Redirect to='/dashboard'/>
   }
 
   return (

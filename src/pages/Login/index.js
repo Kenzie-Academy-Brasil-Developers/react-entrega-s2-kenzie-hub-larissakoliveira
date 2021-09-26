@@ -1,13 +1,12 @@
-import FormLogin from '../../components/FormLogin'
+import FormLogin from "../../components/FormLogin";
 
-const Login = ({authenticated, setAuthenticated}) => {
-    return(
-        <>
-        <div>
-            <FormLogin authenticated={authenticated} setAuthenticated={setAuthenticated}/>
-        </div>
-        </>
-    )
-}
+const Login = ({ authenticated, setAuthenticated }) => {
+  return (
+    <FormLogin
+      authenticated={authenticated}
+      setAuthenticated={setAuthenticated}
+    />
+  );
+};
 
-export default Login
+export default Login;

@@ -10,19 +10,8 @@ export const Container = styled.button`
     width: 100%;
     transition: 0.5s;
     margin-top: 16px;
+    font-weight: bold;
     :hover{
         border: 2px solid #4169E1;
-    }
-`
-
-export const TasksContainer = styled.div`
-    padding: 0 38px;
-    margin-top: 32px;
-    display: flex;
-    flex-wrap: wrap;
-
-    div{
-        margin-top: 16px;
-        margin-right: 32px;
     }
 `

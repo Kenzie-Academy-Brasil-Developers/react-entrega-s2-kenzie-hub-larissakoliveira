@@ -4,55 +4,59 @@ import Input from "../../components/Input";
 import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
-import { TasksContainer } from "../../components/Button/styles";
+import { TechsContainer } from "../../components/Card/styles";
 import api from "../../services/api";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
 const Dashboard = ({ authenticated }) => {
   const [tech, setTech] = useState([]);
+
   const [token] = useState(
     JSON.parse(localStorage.getItem("@kenzieHub:token")) || ""
   );
+  const [user] = useState(
+    JSON.parse(localStorage.getItem("@kenzieHub:user")) || ""
+  );
+
   const { register, handleSubmit } = useForm();
 
-  // const user = JSON.parse(localStorage.getItem("@kenzieHub:user"));
-
-  const showTechs = ({ techs: id, title, status }) => {
+  const showTechs = () => {
     api
-      .get("./users", {
+      .get(`/users/${user}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setTech(response.data))
+      .then((response) => setTech(response.data.techs))
       .catch((err) => console.log(err));
   };
 
-
   useEffect(() => {
-    //showTechs()
+    showTechs();
   }, []);
 
-  const onSubmit = ({ tech }) => {
-      if(!tech){
-          return toast.error('Complete o campo para adicionar tecnologia')
-      }
-      api.post("/users/techs", {
-          title: tech,
-          status: tech,
-      }, {
+  const onSubmit = (data) => {
+    if (!data) {
+      return toast.error("Complete os campos para adicionar tecnologia");
+    }
+    api
+      .post("/users/techs/", data, {
         headers: {
-            Authorization: `Bearer ${token}`,
-          },
-      }).then(response => showTechs())
-  }
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((_) => showTechs());
+  };
 
-//   const deleteTech = ({ techs: { id } }) => {
-//     api.delete(`/users/techs/${id}`, {
-//       headers: { Authorization: `Bearer ${token}` },
-//     });
-//   };
+  const removeTech = (id) => {
+    const filteredTechs = tech.filter((tech) => tech.id !== id);
+    api
+      .delete(`/users/techs/${id}/`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((_) => setTech(filteredTechs));
+  };
 
   if (!authenticated) {
     return <Redirect to="/" />;
@@ -79,11 +83,18 @@ const Dashboard = ({ authenticated }) => {
           <Button type="submit">Adicionar</Button>
         </section>
       </InputContainer>
-      <TasksContainer>
-        {[1,2,3].map((tech) => (
-          <Card key={tech.id} onClick={() => {}} tech={tech.title} level={tech.status} />
+      <TechsContainer>
+        {[1.2].map((item) => (
+          <Card
+            key={item.id}
+            onClick={() => {
+              removeTech(item.id);
+            }}
+            title={item.title}
+            status={item.status}
+          />
         ))}
-      </TasksContainer>
+      </TechsContainer>
     </Container>
   );
 };

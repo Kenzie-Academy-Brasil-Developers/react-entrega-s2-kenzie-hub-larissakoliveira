@@ -1,15 +1,7 @@
-import { Container, InputContainer } from "./styles";
+import { InputContainer } from "./styles";
 
-const Input = ({ label, icon:Icon, register, error="", name, ...rest}) => {
-  return (
-    <Container>
-      <div>{label} {!!error && <span> - {error} </span>}</div>
-      <div>{label}</div>
-      <InputContainer isErrored={!!error}>
-        <input {...register(name)}{...rest} />
-      </InputContainer>
-    </Container>
-  );
+const Input = ({ register, error = "", name, ...rest }) => {
+  return <InputContainer {...register(name)} {...rest} isErrored={!!error} />;
 };
 
-export default Input
+export default Input;

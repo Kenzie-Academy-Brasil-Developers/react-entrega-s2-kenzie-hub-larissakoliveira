@@ -22,6 +22,10 @@ h2{
     padding: 10px;
     color: #B0C4DE;
 }
+
+.hKhSFz{
+    max-height: 110px;
+}
 `
 export const InputContainer = styled.form`
 flex: 1;
