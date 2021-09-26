@@ -64,7 +64,7 @@ const Dashboard = ({ authenticated }) => {
 
   return (
     <Container>
-      <h1>Bem vindx, nomeUsuario!</h1>
+      <h1>Bem vindx, {user.name}</h1>
       <h2>Adicione a nova tecnologia</h2>
       <InputContainer onSubmit={handleSubmit(onSubmit)}>
         <section>
