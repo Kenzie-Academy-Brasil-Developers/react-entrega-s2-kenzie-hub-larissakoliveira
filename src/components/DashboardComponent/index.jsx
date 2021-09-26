@@ -1,5 +1,4 @@
 import {Container} from './styles'
-import { Button } from '@material-ui/core';
 
 const DashboardComponent = () => {
 

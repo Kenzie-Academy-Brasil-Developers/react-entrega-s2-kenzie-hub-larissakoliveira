@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import api from "../../services/api";
 import { toast } from "react-toastify";
 
-const FormSignUp = () => {
+const FormSignUp = ({authenticated}) => {
   const phoneReg =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const passwordReg =
@@ -61,6 +61,11 @@ const FormSignUp = () => {
       })
       .catch((err) => toast.error("Erro ao criar a conta"));
   };
+
+
+  if(authenticated){
+    return <Redirect to='./dashboard'/>
+  }
 
   return (
     <Container>

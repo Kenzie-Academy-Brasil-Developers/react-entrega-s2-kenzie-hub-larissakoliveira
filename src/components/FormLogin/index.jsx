@@ -4,21 +4,28 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container } from './styles'
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import api from './../../services/api'
+import { toast } from "react-toastify";
 
-const FormSignUp = ({setUser}) => {
+
+const FormSignUp = ({setAuthenticated, authenticated}) => {
+   
+
+    const passwordReg =
+    /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
   const history = useHistory();
 
   const schema = yup.object().shape({
     email: yup.string().email("Email inválido").required("Campo obrigatório"),
     password: yup
-      .string()
-      .min(8, "Mínimo de 8 dígitos")
-      .matches(
-        /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-        "Senha deve conter ao menos uma letra maiúscula, uma minúscula, um número e um caracter especial!"
-      )
-      .required("Campo obrigatório"),
+    .string()
+    .matches(
+      passwordReg,
+      "Senha deve conter ao menos uma letra maiúscula, minúscula, número e caracter especial!"
+    )
+    .min(6, "Mínimo 6 dígitos")
+    .required("Campo obrigatório*"),
   });
 
   const {
@@ -27,10 +34,24 @@ const FormSignUp = ({setUser}) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleForm = (data) => {  
-    history.push(`/${data.name}`)
-   
+  const handleForm = ({data}) => {
+    api
+      .post("/sessions", data)
+      .then(response => {
+        const { token } = response;
+        console.log(response)
+        localStorage.setItem("@kenzieHub:token", JSON.stringify(token))
+        // localStorage.setItem("@kenzieHub:user", JSON.stringify(user))
+        setAuthenticated(true)
+        toast.success("Logado com sucesso!");
+        return history.push("/dashboard");
+      })
+      .catch((err) => toast.error("Email e/ou senha inválidos!"));
   };
+
+  if(authenticated){
+      return <Redirect to='./dashboard'/>
+  }
 
   return (
       <Container>

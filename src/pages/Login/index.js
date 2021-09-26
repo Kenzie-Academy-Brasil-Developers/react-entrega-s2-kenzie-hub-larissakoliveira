@@ -1,10 +1,10 @@
 import FormLogin from '../../components/FormLogin'
 
-const Login = () => {
+const Login = ({authenticated, setAuthenticated}) => {
     return(
         <>
         <div>
-            <FormLogin/>
+            <FormLogin authenticated={authenticated} setAuthenticated={setAuthenticated}/>
         </div>
         </>
     )

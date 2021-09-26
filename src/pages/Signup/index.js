@@ -1,9 +1,9 @@
 import FormSignUp from '../../components/FormSignup'
 
-const Signup = () => {
+const Signup = ({setName, authenticated}) => {
     return(
         <div>
-            <FormSignUp />
+            <FormSignUp authenticated={authenticated} setName={setName}/>
         </div>
     )
 }
