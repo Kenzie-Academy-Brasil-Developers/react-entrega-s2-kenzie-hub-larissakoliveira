@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container } from './styles'
 import { Link, Redirect } from "react-router-dom";
-import api from './../../services/api'
+import api from '../../services/api'
 import { toast } from "react-toastify";
 
 
