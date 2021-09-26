@@ -27,7 +27,7 @@ const FormLogin = ({ setAuthenticated, authenticated }) => {
 
   const handleForm = (data) => {
     api
-      .post("/sessions/", data)
+      .post("/sessions", data)
       .then((response) => {
         const { token, user } = response.data;
         localStorage.clear();

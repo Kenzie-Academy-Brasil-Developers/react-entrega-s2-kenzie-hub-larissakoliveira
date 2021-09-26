@@ -54,7 +54,7 @@ const FormSignUp = ({authenticated}) => {
   }) => {
     const user = { name, email, password, bio, course_module, contact };
     api
-      .post("/users/", user)
+      .post("/users", user)
       .then((_) => {
         toast.success("Sucesso ao criar a conta!");
         return history.push("/");

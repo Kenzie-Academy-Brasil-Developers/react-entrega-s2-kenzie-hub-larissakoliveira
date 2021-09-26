@@ -41,7 +41,7 @@ const Dashboard = ({ authenticated }) => {
       return toast.error("Complete os campos para adicionar tecnologia");
     }
     api
-      .post("/users/techs/", data, {
+      .post("/users/techs", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -52,7 +52,7 @@ const Dashboard = ({ authenticated }) => {
   const removeTech = (id) => {
     const filteredTechs = tech.filter((tech) => tech.id !== id);
     api
-      .delete(`/users/techs/${id}/`, {
+      .delete(`/users/techs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((_) => setTech(filteredTechs));
