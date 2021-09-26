@@ -6,7 +6,7 @@ import Signup from "../pages/Signup"
 
 const Routes = () => {
 
-    const [authenticated, setAuthenticated] = useState(false);
+    const [authenticated, setAuthenticated] = useState(true);
 
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("@kenzieHub:token"));
