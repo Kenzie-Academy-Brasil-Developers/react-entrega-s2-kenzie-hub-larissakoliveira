@@ -1,12 +1,14 @@
 import { Container } from './styles'
 import Button from '../Button'
 
-const Card = ({ onClick }) => {
+const Card = ({ onClick, tech, level }) => {
     return(
         <Container>
-            <h2>Tecnologia</h2>
+            <h3>Tecnologia</h3>
+            <p>{tech}</p>
             <hr/>
-            <h2>Tecnologia</h2>
+            <h3>Nível</h3>
+            <p>{level}</p>
             <Button onClick={onClick}>Deletar</Button>
         </Container>
     )

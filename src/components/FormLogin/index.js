@@ -34,19 +34,22 @@ const FormSignUp = ({setAuthenticated, authenticated}) => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleForm = ({data}) => {
+  const handleForm = (data) => {
     api
       .post("/sessions", data)
       .then(response => {
-        const { token } = response;
-        console.log(response)
+        const { token } = response.data;
+        localStorage.clear();
         localStorage.setItem("@kenzieHub:token", JSON.stringify(token))
         // localStorage.setItem("@kenzieHub:user", JSON.stringify(user))
         setAuthenticated(true)
         toast.success("Logado com sucesso!");
         return history.push("/dashboard");
       })
-      .catch((err) => toast.error("Email e/ou senha inválidos!"));
+      .catch((err) => {
+        setAuthenticated(false)
+        toast.error("Email e/ou senha inválidos!")
+    });
   };
 
   if(authenticated){
