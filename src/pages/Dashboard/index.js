@@ -5,11 +5,13 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import { TechsContainer } from "../../components/Card/styles";
-import api from "../../services/api";
+
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import axios from 'axios'
 
 const Dashboard = ({ authenticated }) => {
+  
   const [tech, setTech] = useState([]);
 
   const [token] = useState(
@@ -21,14 +23,17 @@ const Dashboard = ({ authenticated }) => {
 
   const { register, handleSubmit } = useForm();
 
+
   const showTechs = () => {
-    api
-      .get(`/users/${user}`, {
+    axios
+      .get(`https://kenziehub.herokuapp.com/users/${user}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((response) => setTech(response.data.techs))
+      .then((response) => {
+        setTech(response.data.techs)
+        localStorage.clear();})
       .catch((err) => console.log(err));
   };
 
@@ -40,8 +45,8 @@ const Dashboard = ({ authenticated }) => {
     if (!data) {
       return toast.error("Complete os campos para adicionar tecnologia");
     }
-    api
-      .post("/users/techs", data, {
+    axios
+      .post("https://kenziehub.herokuapp.com/users/techs", data, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,8 +56,8 @@ const Dashboard = ({ authenticated }) => {
 
   const removeTech = (id) => {
     const filteredTechs = tech.filter((tech) => tech.id !== id);
-    api
-      .delete(`/users/techs/${id}`, {
+    axios
+      .delete(`https://kenziehub.herokuapp.com/users/techs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((_) => setTech(filteredTechs));
@@ -84,7 +89,7 @@ const Dashboard = ({ authenticated }) => {
         </section>
       </InputContainer>
       <TechsContainer>
-        {tech.map((item) => (
+        {[1,2].map((item) => (
           <Card
             key={item.id}
             onClick={() => {

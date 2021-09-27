@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container } from "./styles";
 import { Link, Redirect } from "react-router-dom";
-import api from "../../services/api";
+import axios from 'axios'
 import { toast } from "react-toastify";
 
 const FormLogin = ({ setAuthenticated, authenticated }) => {
@@ -26,11 +26,10 @@ const FormLogin = ({ setAuthenticated, authenticated }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleForm = (data) => {
-    api
-      .post("/sessions", data)
+    axios
+      .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((response) => {
         const { token, user } = response.data;
-        localStorage.clear();
         localStorage.setItem("@kenzieHub:token", JSON.stringify(token));
         localStorage.setItem("@kenzieHub:user", JSON.stringify(user.id))
         setAuthenticated(true);
@@ -38,7 +37,6 @@ const FormLogin = ({ setAuthenticated, authenticated }) => {
         return history.push("/dashboard");
       })
       .catch((err) => {
-        // setAuthenticated(false);
         toast.error("Email e/ou senha inválidos!");
       });
   };

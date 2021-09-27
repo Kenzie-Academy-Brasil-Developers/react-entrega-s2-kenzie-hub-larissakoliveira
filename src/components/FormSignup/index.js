@@ -5,14 +5,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Container } from "./styles";
 import { Link, Redirect } from "react-router-dom";
-import api from "../../services/api";
+import axios from 'axios';
 import { toast } from "react-toastify";
 
-const FormSignUp = ({authenticated}) => {
+const FormSignUp = ({ authenticated }) => {
   const phoneReg =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const passwordReg =
     /^((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/;
+
   const history = useHistory();
 
   const schema = yup.object().shape({
@@ -53,8 +54,8 @@ const FormSignUp = ({authenticated}) => {
     contact,
   }) => {
     const user = { name, email, password, bio, course_module, contact };
-    api
-      .post("/users", user)
+    axios
+      .post("https://kenziehub.herokuapp.com/users", user)
       .then((_) => {
         toast.success("Sucesso ao criar a conta!");
         return history.push("/");
@@ -62,9 +63,8 @@ const FormSignUp = ({authenticated}) => {
       .catch((err) => toast.error("Erro ao criar a conta!"));
   };
 
-
-  if(authenticated){
-    return <Redirect to='/dashboard'/>
+  if (authenticated) {
+    return <Redirect to='/dashboard' />
   }
 
   return (
