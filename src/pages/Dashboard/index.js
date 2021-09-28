@@ -87,7 +87,7 @@ const Dashboard = ({ authenticated }) => {
         </section>
       </InputContainer>
       <TechsContainer>
-        {[1,2].map((item) => (
+        {tech.map((item) => (
           <Card
             key={item.id}
             onClick={() => {
