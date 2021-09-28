@@ -60,7 +60,7 @@ const FormSignUp = ({ authenticated }) => {
         toast.success("Sucesso ao criar a conta!");
         return history.push("/");
       })
-      .catch((err) => toast.error("Erro ao criar a conta!"));
+      .catch((err) => toast.error("Erro ao criar a conta, confira os campos!"));
   };
 
   if (authenticated) {

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
 import { TechsContainer } from "../../components/Card/styles";
-
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from 'axios'
@@ -17,20 +16,16 @@ const Dashboard = ({ authenticated }) => {
   const [token] = useState(
     JSON.parse(localStorage.getItem("@kenzieHub:token")) || ""
   );
-  const [user] = useState(
-    JSON.parse(localStorage.getItem("@kenzieHub:user")) || ""
+  const [userID] = useState(
+    JSON.parse(localStorage.getItem("@kenzieHub:user"))
   );
+  console.log(userID)
 
   const { register, handleSubmit } = useForm();
 
-
   const showTechs = () => {
     axios
-      .get(`https://kenziehub.herokuapp.com/users/${user}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .get(`https://kenziehub.herokuapp.com/users/${userID}`)
       .then((response) => {
         setTech(response.data.techs)
         localStorage.clear();})
@@ -46,12 +41,15 @@ const Dashboard = ({ authenticated }) => {
       return toast.error("Complete os campos para adicionar tecnologia");
     }
     axios
-      .post("https://kenziehub.herokuapp.com/users/techs", data, {
+      .post("https://kenziehub.herokuapp.com/users/techs", {
+        'title': data.title,
+        'status': data.status
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((_) => showTechs());
+      .then(() => showTechs());
   };
 
   const removeTech = (id) => {
@@ -60,7 +58,7 @@ const Dashboard = ({ authenticated }) => {
       .delete(`https://kenziehub.herokuapp.com/users/techs/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((_) => setTech(filteredTechs));
+      .then(() => setTech(filteredTechs));
   };
 
   if (!authenticated) {
@@ -69,18 +67,18 @@ const Dashboard = ({ authenticated }) => {
 
   return (
     <Container>
-      <h1>Bem vindx, {user.name}</h1>
+      <h1>Bem vindx, Nome</h1>
       <h2>Adicione a nova tecnologia</h2>
       <InputContainer onSubmit={handleSubmit(onSubmit)}>
         <section>
           <Input
             error=""
-            name="tech"
+            name="title"
             placeholder="Adicione nova tecnologia"
             register={register}
           />
           <Input
-            name="level"
+            name="status"
             error=""
             placeholder="Adicione seu nível"
             register={register}

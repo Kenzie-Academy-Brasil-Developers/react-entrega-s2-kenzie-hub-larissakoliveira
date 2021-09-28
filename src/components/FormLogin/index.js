@@ -30,6 +30,7 @@ const FormLogin = ({ setAuthenticated, authenticated }) => {
       .post("https://kenziehub.herokuapp.com/sessions", data)
       .then((response) => {
         const { token, user } = response.data;
+        
         localStorage.setItem("@kenzieHub:token", JSON.stringify(token));
         localStorage.setItem("@kenzieHub:user", JSON.stringify(user.id))
         setAuthenticated(true);

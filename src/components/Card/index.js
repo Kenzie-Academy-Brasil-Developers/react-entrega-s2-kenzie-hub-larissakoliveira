@@ -1,9 +1,9 @@
 import { Container } from './styles'
 import Button from '../Button'
 
-const Card = ({ onClick, title, status }) => {
+const Card = ({ key, onClick, title, status }) => {
     return(
-        <Container>
+        <Container key={key}>
             <h4>Tecnologia</h4>
             <p>{title}</p>
             <h4>Nível</h4>
