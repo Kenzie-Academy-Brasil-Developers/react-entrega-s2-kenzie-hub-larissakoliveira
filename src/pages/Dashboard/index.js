@@ -7,10 +7,9 @@ import Card from "../../components/Card";
 import { TechsContainer } from "../../components/Card/styles";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import axios from 'axios'
+import axios from "axios";
 
 const Dashboard = ({ authenticated }) => {
-  
   const [tech, setTech] = useState([]);
 
   const [token] = useState(
@@ -19,7 +18,9 @@ const Dashboard = ({ authenticated }) => {
   const [userID] = useState(
     JSON.parse(localStorage.getItem("@kenzieHub:user"))
   );
-  console.log(userID)
+  const [name] = useState(
+    JSON.parse(localStorage.getItem("@kenzieHub:name"))
+  );
 
   const { register, handleSubmit } = useForm();
 
@@ -27,8 +28,9 @@ const Dashboard = ({ authenticated }) => {
     axios
       .get(`https://kenziehub.herokuapp.com/users/${userID}`)
       .then((response) => {
-        setTech(response.data.techs)
-        localStorage.clear();})
+        setTech(response.data.techs);
+        localStorage.clear();
+      })
       .catch((err) => console.log(err));
   };
 
@@ -41,14 +43,18 @@ const Dashboard = ({ authenticated }) => {
       return toast.error("Complete os campos para adicionar tecnologia");
     }
     axios
-      .post("https://kenziehub.herokuapp.com/users/techs", {
-        'title': data.title,
-        'status': data.status
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .post(
+        "https://kenziehub.herokuapp.com/users/techs",
+        {
+          title: data.title,
+          status: data.status,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(() => showTechs());
   };
 
@@ -67,7 +73,7 @@ const Dashboard = ({ authenticated }) => {
 
   return (
     <Container>
-      <h1>Bem vindx, Nome</h1>
+      <h1>Seja bem-vindx <span> {name} </span>ao KenzieHub!!!</h1>
       <h2>Adicione a nova tecnologia</h2>
       <InputContainer onSubmit={handleSubmit(onSubmit)}>
         <section>
@@ -83,7 +89,7 @@ const Dashboard = ({ authenticated }) => {
             placeholder="Adicione seu nível"
             register={register}
           />
-          <Button type="submit">Adicionar</Button>
+          <Button className='add' type="submit">Adicionar</Button>
         </section>
       </InputContainer>
       <TechsContainer>

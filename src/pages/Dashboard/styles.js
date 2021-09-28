@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
 display: flex;
 justify-content: center;
-padding: 0 38px;
+padding: 10px 38px;
 flex-direction: column;
 text-align: center;
 height: 100vh;
@@ -23,8 +23,47 @@ h2{
     color: #B0C4DE;
 }
 
+span{
+    color: red;
+}
+
+.HlYRE{
+    max-height: 180px;
+}
+
 .hKhSFz{
     max-height: 110px;
+}
+
+@media (max-width: 600px){
+    h1{
+        font-size: 25px;
+        padding-top: 20px;
+    }
+    h2{
+        font-size: 20px;
+        margin: 10px 0 5px 0;
+        text-align: center;
+        color: black;
+    }
+
+    section{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    input{
+        margin-bottom: 10px;
+        padding: 8px;
+    }
+    .kmPLgm section button  {
+        width: 160px;
+        height: 38px;
+    }
+    .add{
+        max-width: 260px;
+        margin: 5px;
+    }
 }
 `
 export const InputContainer = styled.form`
@@ -37,12 +76,6 @@ section{
         max-width: 80%;
         flex: 1;
         margin-right: 16px;
-    }
-
-    button{
-        max-width: 260px;
-        height: 49px;
-        margin: 0;
     }
 }
 `

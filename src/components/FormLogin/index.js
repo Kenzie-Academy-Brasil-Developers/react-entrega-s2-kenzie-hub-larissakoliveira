@@ -32,7 +32,8 @@ const FormLogin = ({ setAuthenticated, authenticated }) => {
         const { token, user } = response.data;
         
         localStorage.setItem("@kenzieHub:token", JSON.stringify(token));
-        localStorage.setItem("@kenzieHub:user", JSON.stringify(user.id))
+        localStorage.setItem("@kenzieHub:user", JSON.stringify(user.id));
+        localStorage.setItem("@kenzieHub:name", JSON.stringify(user.name));
         setAuthenticated(true);
         toast.success("Logado com sucesso!");
         return history.push("/dashboard");
