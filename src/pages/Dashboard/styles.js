@@ -35,6 +35,33 @@ span{
     max-height: 110px;
 }
 
+
+section{
+    display: flex;
+    flex-direction: column;
+}
+
+.logout{
+    width: 80px;
+    height: 25px;
+    margin-right:50px;
+}
+
+.containerDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end
+}
+
+label{
+    font-weight: bold;
+}
+
+button{
+    max-width: 200px;
+    margin: 0 auto;
+}
+
 @media (max-width: 600px){
     h1{
         font-size: 25px;
@@ -47,11 +74,6 @@ span{
         color: black;
     }
 
-    section{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
     input{
         margin-bottom: 10px;
         padding: 8px;

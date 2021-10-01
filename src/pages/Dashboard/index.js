@@ -7,9 +7,13 @@ import Card from "../../components/Card";
 import { TechsContainer } from "../../components/Card/styles";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useHistory } from "react-router";
 import axios from "axios";
 
-const Dashboard = ({ authenticated }) => {
+const Dashboard = ({ authenticated, setAuthenticated }) => {
+
+  const history = useHistory();
+
   const [tech, setTech] = useState([]);
 
   const [token] = useState(
@@ -29,7 +33,7 @@ const Dashboard = ({ authenticated }) => {
       .get(`https://kenziehub.herokuapp.com/users/${userID}`)
       .then((response) => {
         setTech(response.data.techs);
-        localStorage.clear();
+      
       })
       .catch((err) => console.log(err));
   };
@@ -39,7 +43,7 @@ const Dashboard = ({ authenticated }) => {
   }, []);
 
   const onSubmit = (data) => {
-    if (!data) {
+    if (!data.title) {
       return toast.error("Complete os campos para adicionar tecnologia");
     }
     axios
@@ -55,7 +59,7 @@ const Dashboard = ({ authenticated }) => {
           },
         }
       )
-      .then(() => showTechs());
+      .then(() => console.log(data.message) );
   };
 
   const removeTech = (id) => {
@@ -71,10 +75,19 @@ const Dashboard = ({ authenticated }) => {
     return <Redirect to="/" />;
   }
 
+  const logout = () => {
+    localStorage.clear()
+    setAuthenticated(false);
+    return history.push("/");
+  }
+
   return (
     <Container>
       <h1>Seja bem-vindx <span> {name} </span>ao KenzieHub!!!</h1>
-      <h2>Adicione a nova tecnologia</h2>
+      <div className="containerDiv">
+      <h2>Adicione a nova tecnologia e seu nível</h2>
+      <Button onClick={logout} className='logout'>SAIR</Button>
+      </div>
       <InputContainer onSubmit={handleSubmit(onSubmit)}>
         <section>
           <Input
@@ -84,11 +97,34 @@ const Dashboard = ({ authenticated }) => {
             register={register}
           />
           <Input
+            id="iniciante" 
+            value="Iniciante"
+            type='radio'
             name="status"
             error=""
             placeholder="Adicione seu nível"
             register={register}
           />
+          <label for="iniciante">Iniciante</label>
+           <Input
+            id="intermediário" 
+            value="Intermediário"
+            type='radio'
+            name="status"
+            error=""
+            placeholder="Adicione seu nível"
+            register={register}
+          />
+          <label for="intermediário">Intermediário</label>
+           <Input
+            id="avançado" 
+            value="Avançado"
+            type='radio'
+            name="status"
+            error=""
+            placeholder="Adicione seu nível"
+            register={register}
+          /><label for="avançado">Avançado</label>
           <Button className='add' type="submit">Adicionar</Button>
         </section>
       </InputContainer>
