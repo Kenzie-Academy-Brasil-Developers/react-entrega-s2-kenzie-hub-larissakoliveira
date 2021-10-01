@@ -33,9 +33,9 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
       .get(`https://kenziehub.herokuapp.com/users/${userID}`)
       .then((response) => {
         setTech(response.data.techs);
-      
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      console.log(tech);
   };
 
   useEffect(() => {
@@ -59,9 +59,12 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
           },
         }
       )
-      .then(() => console.log(data.message) );
+      .then((response) => setTech([...tech, {title: response.data.title, status: response.data.status}]))
+      .catch((err)=> console.log(err));
   };
 
+
+console.log(tech)
   const removeTech = (id) => {
     const filteredTechs = tech.filter((tech) => tech.id !== id);
     axios
@@ -97,17 +100,17 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
             register={register}
           />
           <Input
-            id="iniciante" 
+            id="Iniciante" 
             value="Iniciante"
-            type='radio'
+            type='radio' 
             name="status"
             error=""
             placeholder="Adicione seu nível"
             register={register}
           />
-          <label for="iniciante">Iniciante</label>
+          <label for="Iniciante">Iniciante</label>
            <Input
-            id="intermediário" 
+            id="Intermediário" 
             value="Intermediário"
             type='radio'
             name="status"
@@ -115,21 +118,23 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
             placeholder="Adicione seu nível"
             register={register}
           />
-          <label for="intermediário">Intermediário</label>
+          <label for="Intermediário">Intermediário</label>
            <Input
-            id="avançado" 
+            id="Avançado" 
             value="Avançado"
             type='radio'
             name="status"
             error=""
             placeholder="Adicione seu nível"
             register={register}
-          /><label for="avançado">Avançado</label>
+          /><label for="Avançado">Avançado</label>
           <Button className='add' type="submit">Adicionar</Button>
         </section>
       </InputContainer>
       <TechsContainer>
-        {tech.map((item) => (
+      
+        {tech ? 
+        tech.map((item) => (
           <Card
             key={item.id}
             onClick={() => {
@@ -138,7 +143,9 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
             title={item.title}
             status={item.status}
           />
-        ))}
+        ))
+      :
+      ""}
       </TechsContainer>
     </Container>
   );
