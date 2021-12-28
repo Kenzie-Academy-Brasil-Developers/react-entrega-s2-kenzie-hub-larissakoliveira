@@ -35,7 +35,6 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
         setTech(response.data.techs);
       })
       .catch((err) => console.log(err))
-      console.log(tech);
   };
 
   useEffect(() => {
@@ -43,8 +42,8 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
   }, []);
 
   const onSubmit = (data) => {
-    if (!data.title) {
-      return toast.error("Complete os campos para adicionar tecnologia");
+    if (!data.title || !data.status) {
+      return toast.error("Complete os campos");
     }
     axios
       .post(
@@ -61,10 +60,10 @@ const Dashboard = ({ authenticated, setAuthenticated }) => {
       )
       .then((response) => setTech([...tech, {title: response.data.title, status: response.data.status}]))
       .catch((err)=> console.log(err));
+      toast.success("Tech adicionada com sucesso!");
   };
 
 
-console.log(tech)
   const removeTech = (id) => {
     const filteredTechs = tech.filter((tech) => tech.id !== id);
     axios
@@ -72,21 +71,23 @@ console.log(tech)
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => setTech(filteredTechs));
+      toast.error("Tech removida com sucesso!");
   };
 
   if (!authenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/"/>;
   }
 
   const logout = () => {
     localStorage.clear()
     setAuthenticated(false);
+    toast.success("Deslogado! Volte sempre!");
     return history.push("/");
   }
 
   return (
     <Container>
-      <h1>Seja bem-vindx <span> {name} </span>ao KenzieHub!!!</h1>
+      <h1>Seja bem-vinda(o) <span> {name} </span>ao KenzieHub!!!</h1>
       <div className="containerDiv">
       <h2>Adicione a nova tecnologia e seu nível</h2>
       <Button onClick={logout} className='logout'>SAIR</Button>
@@ -102,7 +103,7 @@ console.log(tech)
           <Input
             id="Iniciante" 
             value="Iniciante"
-            type='radio' 
+            type='radio' start
             name="status"
             error=""
             placeholder="Adicione seu nível"
