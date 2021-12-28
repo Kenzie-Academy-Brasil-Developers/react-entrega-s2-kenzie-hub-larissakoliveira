@@ -41,7 +41,7 @@ export const TechsContainer = styled.div`
 
 
     div{
-        margin: 15px 0;
+        margin: 15px 10px;
     }
     }
 `

@@ -6,6 +6,7 @@ justify-content: center;
 padding: 10px 38px;
 flex-direction: column;
 text-align: center;
+min-height: 100vh;
 height: 100%;
 width: 100vw;
 background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(84,187,201,1) 64%, rgba(0,212,255,1) 100%); 
